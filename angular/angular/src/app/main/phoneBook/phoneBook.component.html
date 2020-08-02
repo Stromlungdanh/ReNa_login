@@ -1,0 +1,90 @@
+<div [@routerTransition]>
+    <div class="kt-subheader kt-grid__item">
+        <div [class]="containerClass">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    <span>{{ "PhoneBook" | localize }}</span>
+                </h3>
+                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                <span class="kt-subheader__desc">
+                    {{ "PhoneBookHeaderInfo" | localize }}
+                </span>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <div class="kt-subheader__wrapper">
+                    <a href="/app/main/newperson"><button class="btn btn-primary">
+                            <i class="fa fa-plus"></i>
+                            {{ "CreateNewUser" | localize }}
+                        </button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-table [value]="people" editMode="row" [paginator]="true" [showCurrentPageReport]="true" [rows]="10"
+        [totalRecords]="people.length" [resizableColumns]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>EmailAddress</th>
+                <th style="width: 20em;"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-person let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="person">
+                <td>{{ person.id }}</td>
+
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="person.name" class="form-control" required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ person.name }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="person.surName" class="form-control" required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ person.surName }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="person.emailAddress" class="form-control"
+                                required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{ person.emailAddress }}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="text-align: center;">
+                    <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil"
+                        class="btn btn-primary" (click)="onRowEditInit(person)">
+                        <i class="pi pi-pencil"></i>
+                    </button>
+                    <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check"
+                        class="btn btn-success" style="margin-right: 0.5em;" (click)="onRowEditSave(person)">
+                        <i class="pi pi-check"></i>
+                    </button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+                        class="btn btn-label-warning" (click)="onRowEditCancel(person, ri)">
+                        <i class="pi pi-times"></i>
+                    </button>
+                    <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times"
+                        class="btn btn-label-danger" (click)="deletePerson(person.id)">
+                        <i class="pi pi-times"></i>
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

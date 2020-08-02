@@ -1,0 +1,25 @@
+<form class="kt-form ml-4 pl-2" ngForm="newPerson">
+  <div class="form-group row">
+    <label>
+      {{ 'Name' | localize}}
+      <input type="text" class="form-group row form-control" name="Name" [(ngModel)]="model.name">
+    </label>
+  </div>
+  <div class="form-group row">
+    <label>
+      {{ 'Surname' | localize}}
+      <input type="text" class="form-group row form-control" name="SurName" [(ngModel)]="model.surName">
+    </label>
+  </div>
+  <div class="form-group row">
+    <label>
+      {{'EmailAddress' | localize}}
+      <input type="text" class="form-group row form-control" name="EmailAddress" [(ngModel)]="model.emailAddress">
+    </label>
+  </div>
+
+  <div class="col-lg-2 col-md-3 col-sm-4">
+    <button class="btn btn-primary" type="button" (click)="addPerson()"><span>{{'Save' | localize}}</span></button>
+    <button class="btn btn-primary" type="button" (click)="cancelAddPerson()"><span>{{'Cancel' | localize}}</span></button>
+  </div>
+</form>
